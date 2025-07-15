@@ -1,0 +1,5 @@
+# Ignorar todos los archivos dentro de /inputs/
+inputs/*
+
+# Pero permitir que la carpeta exista en el repo (opcionalmente con un .gitkeep)
+!inputs/.gitkeep
