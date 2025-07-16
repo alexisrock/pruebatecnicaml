@@ -25,25 +25,34 @@ tanto para los arcivos que estaban en formato json como csv se utilizo la librer
 ### Validacion y limpieza de datos
 
 - se descartaron las fechas no parseables
-- se filtraon los datos que correspondieras a una semana antes de la fecha y no maximo 3 segun las indicaciones
-- se ordenaron los datos por fecha
-
+- se filtraon los datos y se seleccionan los datos de una semana antes
+- luego se filtran los datos respecto a esa semana para 3 semanas atras
 
 ### 3 Calculo de metricas por impresion
 
-se calcularon las metricas, exclusivamente para el mismo 'user_id' y 'value_prop'
+se calcularon las metricas, exclusivamente para el mismo 'user_id' y 'value_prop' todas las agrupaciones se hicieron por user_id y value_prop
 
-- has_click: muestra un booleano indicando si hubo click el mismo dia.
+- has_click: muestra un booleano indicando si hubo click el mismo.
 - user_print_result: cantidad de veces que el usuario vio la misma value_prop en las ultimas 3 semanas anteriores
-- user_taps_result: cantidad de click que el usuario hizo en las ultimas 3 semanas
-- user_payments_result: cantidad de pagos realizados asociados a el value_prop
+- user_taps_result: cantidad de click que el usuario hizo en las ultimas 3 semanas anteriores
+- user_payments_result: cantidad de pagos realizados asociados a el value_prop en las ultimas 3 semanas anteriores
 - amounts_spent_result: suma de los importes gastados en esa value_prop
 
-### 4 Manejo de fechas
+### 4 Unir los Resultados
 
-- se calculo la fecha para 3 semanas atras.
-- si la fecha evaluada caia antes del primer registro disponible en los datasets se ajustaba para respetar el rango minimo
+se escoge hacer un merge left para que me muestre los taps y los payments sin  importar si  los campos count_payments,  count_taps, total_payments, son nulos
 
+- el primer merge que se hace es entre user_print_result y user_taps_result de manera que  para el campo count_taps
+se coloca en nulo por 0
+
+- el resultado de lo anterior se une con df_payments de manera que  para el campo count_payments
+se coloca en nulo por 0
+
+- luego el resultado de lo anterior se une con amounts_spent_result el cual es la suma de los pagos realizados y para el campo total_payments se coloca con cero
+
+
+
+ 
 ### Output generado
 
 - El resultado es un DataFrame consolidado con las 8 columnas
