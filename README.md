@@ -55,4 +55,4 @@ se coloca en nulo por 0
  
 ### Output generado
 
-- El resultado es un DataFrame consolidado con las 8 columnas
+- El resultado es un DataFrame consolidado con las 7 columnas
